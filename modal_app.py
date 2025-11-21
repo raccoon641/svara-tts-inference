@@ -17,7 +17,7 @@ from pydantic import BaseModel
 # Modal App & Image
 # -----------------------------------------------------------------------------
 
-app = modal.App("sub1")  # name can be whatever you like
+app = modal.App("indic-19")  # name can be whatever you like
 
 image = (
     modal.Image.debian_slim(python_version="3.11")
@@ -301,12 +301,13 @@ def create_fastapi_app() -> FastAPI:
 
 @app.function(
     image=image,
-    gpu="B200:1",
-    scaledown_window=15 * 60,
+    gpu="A100:1",
+    min_containers=1,
+    max_containers=2,
     timeout=10 * 60,
 )
 @modal.asgi_app()
-def svara_tts_app():
+def tts_app():
     """
     Runs inside the Modal container.
 
