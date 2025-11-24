@@ -11,6 +11,7 @@ import modal
 import numpy as np
 from fastapi import FastAPI
 from fastapi.responses import Response
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # -----------------------------------------------------------------------------
@@ -18,6 +19,14 @@ from pydantic import BaseModel
 # -----------------------------------------------------------------------------
 
 app = modal.App("indic-19")  # name can be whatever you like
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 image = (
     modal.Image.debian_slim(python_version="3.11")
